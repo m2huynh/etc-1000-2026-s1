@@ -1,0 +1,2221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; More Regression Concepts – ETC1000 2026</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-Introduction-to-R.html" rel="next">
+<link href="./05-Multiple-regression-and-hypothesis-testing.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-b9e11ad5a37ead2aabff839d95ae3857.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+<script src="site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+<script src="site_libs/font-awesome-6.7.2/js/script.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="include/webex.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-More-regression.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">More Regression Concepts</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ETC1000 2026</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="./ETC1000-2026.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Introduction-to-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Statistics &amp; Categorical Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Analysing-numerical-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analysing Numerical Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Understanding-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Models-of-relationships-between-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Models of relationships between data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Multiple-regression-and-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-More-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">More Regression Concepts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-Introduction-to-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-The-tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The tidyverse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-Classification-and-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Classification and Prediction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a></li>
+  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit"><span class="header-section-number">6.2</span> Goodness of fit</a>
+  <ul class="collapse">
+  <li><a href="#r2-as-a-measure-of-model-fit" id="toc-r2-as-a-measure-of-model-fit" class="nav-link" data-scroll-target="#r2-as-a-measure-of-model-fit"><span class="header-section-number">6.2.1</span> <span class="math inline">\(R^2\)</span> as a measure of model fit</a></li>
+  <li><a href="#interpreting-r2-in-context" id="toc-interpreting-r2-in-context" class="nav-link" data-scroll-target="#interpreting-r2-in-context"><span class="header-section-number">6.2.2</span> Interpreting <span class="math inline">\(R^2\)</span> in context</a></li>
+  <li><a href="#r2-and-statistical-significance" id="toc-r2-and-statistical-significance" class="nav-link" data-scroll-target="#r2-and-statistical-significance"><span class="header-section-number">6.2.3</span> <span class="math inline">\(R^2\)</span> and statistical significance</a></li>
+  <li><a href="#computing-r2" id="toc-computing-r2" class="nav-link" data-scroll-target="#computing-r2"><span class="header-section-number">6.2.4</span> Computing <span class="math inline">\(R^2\)</span></a></li>
+  </ul></li>
+  <li><a href="#regression-with-a-binary-predictor" id="toc-regression-with-a-binary-predictor" class="nav-link" data-scroll-target="#regression-with-a-binary-predictor"><span class="header-section-number">6.3</span> Regression with a binary predictor</a></li>
+  <li><a href="#regression-with-a-categorical-predictor-k-2-levels" id="toc-regression-with-a-categorical-predictor-k-2-levels" class="nav-link" data-scroll-target="#regression-with-a-categorical-predictor-k-2-levels"><span class="header-section-number">6.4</span> Regression with a categorical predictor ((k &gt; 2) levels)</a>
+  <ul class="collapse">
+  <li><a href="#choosing-a-reference-level" id="toc-choosing-a-reference-level" class="nav-link" data-scroll-target="#choosing-a-reference-level"><span class="header-section-number">6.4.1</span> Choosing a reference level</a></li>
+  <li><a href="#dummy-coding-indicator-variables" id="toc-dummy-coding-indicator-variables" class="nav-link" data-scroll-target="#dummy-coding-indicator-variables"><span class="header-section-number">6.4.2</span> Dummy coding (indicator variables)</a></li>
+  <li><a href="#interpreting-the-coefficients" id="toc-interpreting-the-coefficients" class="nav-link" data-scroll-target="#interpreting-the-coefficients"><span class="header-section-number">6.4.3</span> Interpreting the coefficients</a></li>
+  <li><a href="#why-we-cannot-include-all-three-positions-as-predictors" id="toc-why-we-cannot-include-all-three-positions-as-predictors" class="nav-link" data-scroll-target="#why-we-cannot-include-all-three-positions-as-predictors"><span class="header-section-number">6.4.4</span> Why we <em>cannot</em> include all three positions as predictors</a></li>
+  <li><a href="#the-fix-use-k---1-dummy-variables" id="toc-the-fix-use-k---1-dummy-variables" class="nav-link" data-scroll-target="#the-fix-use-k---1-dummy-variables"><span class="header-section-number">6.4.5</span> The fix: use (k - 1) dummy variables</a></li>
+  <li><a href="#does-the-reference-level-matter" id="toc-does-the-reference-level-matter" class="nav-link" data-scroll-target="#does-the-reference-level-matter"><span class="header-section-number">6.4.6</span> Does the reference level matter?</a></li>
+  </ul></li>
+  <li><a href="#regression-with-time-series" id="toc-regression-with-time-series" class="nav-link" data-scroll-target="#regression-with-time-series"><span class="header-section-number">6.5</span> Regression with time-series</a></li>
+  <li><a href="#interaction-effects" id="toc-interaction-effects" class="nav-link" data-scroll-target="#interaction-effects"><span class="header-section-number">6.6</span> Interaction Effects</a></li>
+  <li><a href="#excel" id="toc-excel" class="nav-link" data-scroll-target="#excel"><span class="header-section-number">6.7</span> Excel</a>
+  <ul class="collapse">
+  <li><a href="#recap-of-excels-data-analysis-tool-pack-for-regression" id="toc-recap-of-excels-data-analysis-tool-pack-for-regression" class="nav-link" data-scroll-target="#recap-of-excels-data-analysis-tool-pack-for-regression"><span class="header-section-number">6.7.1</span> Recap of Excel’s Data Analysis Tool Pack for Regression</a></li>
+  <li><a href="#multiple-regression-with-a-binary-predictor" id="toc-multiple-regression-with-a-binary-predictor" class="nav-link" data-scroll-target="#multiple-regression-with-a-binary-predictor"><span class="header-section-number">6.7.2</span> Multiple Regression with a Binary predictor</a></li>
+  <li><a href="#multiple-regression-with-a-categorical-predictor" id="toc-multiple-regression-with-a-categorical-predictor" class="nav-link" data-scroll-target="#multiple-regression-with-a-categorical-predictor"><span class="header-section-number">6.7.3</span> Multiple Regression with a Categorical predictor</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.8</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">6.9</span> Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">More Regression Concepts</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning Objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By the end of this chapter, you should be able to:</p>
+<ol type="1">
+<li>Explain what goodness of fit means in regression, and why statistical significance alone does not guarantee a useful model.</li>
+<li>Interpret <span class="math inline">\(R^2\)</span> as the proportion of variation in an outcome explained by a regression model, and describe how it relates to <span class="math inline">\(SS_T\)</span>, <span class="math inline">\(SS_E\)</span> and <span class="math inline">\(SS_R\)</span></li>
+<li>Distinguish between <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span>, and explain why adjusted <span class="math inline">\(R^2\)</span> is preferred when comparing multiple regression models.</li>
+<li>Interpret regression coefficients when a predictor is binary, including how the meaning changes when the 0/1 coding is reversed.</li>
+<li>Use dummy variables to include a categorical predictor with more than two levels, identify the reference category, and interpret coefficients as comparisons to that reference group.</li>
+<li>Explain why using all <span class="math inline">\(k\)</span> dummy variables (with an intercept) creates perfect multicollinearity, and state the “<span class="math inline">\(k-1\)</span>” rule for categorical predictors.</li>
+<li>Describe why simple linear regression can perform poorly with time-series data (e.g., seasonality and autocorrelation), and recognise when time-series methods are more appropriate.</li>
+<li>Identify and interpret an interaction (moderation) effect in a regression model, including how to write and compare the implied regression equations for different groups.</li>
+</ol>
+</div>
+</div>
+<center>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Covers/cover6.png" class="img-fluid figure-img" width="2098"></p>
+</figure>
+</div>
+</div>
+</div>
+</center>
+<section id="introduction" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
+<p>In the previous chapters, we learnt how to build regression models and how to use hypothesis testing to decide whether the relationships we observe are likely to be real or simply due to chance. We now know how to estimate effects, interpret coefficients, and assess statistical significance.</p>
+<p>But real data rarely fits neatly into a single, simple regression line.</p>
+<p>In practice, we often want to answer deeper questions, such as:</p>
+<ul>
+<li>How well does my model explain what is happening?</li>
+<li>What happens when predictors are categories rather than numbers?</li>
+<li>How do relationships change over time?</li>
+<li>Does the effect of one variable depend on another?</li>
+</ul>
+<p>This chapter extends regression beyond the basics and shows how it adapts to more realistic and complex situations.</p>
+</section>
+<section id="goodness-of-fit" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="goodness-of-fit"><span class="header-section-number">6.2</span> Goodness of fit</h2>
+<p>So far, we have focused on interpreting individual regression coefficients and using p-values to assess whether a relationship is statistically significant. However, a statistically significant relationship does not automatically mean that a model is <em>useful</em> or <em>informative</em>.* A model can detect a real association while still doing a poor job of explaining the outcome overall. This leads to an important next question:</p>
+<blockquote class="blockquote">
+<p>how well does our regression model actually fit the data?</p>
+</blockquote>
+<p>Measures of goodness of fit help us quantify how closely the model’s predictions align with the observed values, allowing us to assess how much of the variation in the outcome is explained by the model and to compare different regression models in a meaningful way.</p>
+<section id="r2-as-a-measure-of-model-fit" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="r2-as-a-measure-of-model-fit"><span class="header-section-number">6.2.1</span> <span class="math inline">\(R^2\)</span> as a measure of model fit</h3>
+<p>One of the most commonly reported measures of goodness of fit in regression is <span class="math inline">\(R^2\)</span>, known as the coefficient of determination. While regression coefficients tell us about the direction and size of relationships between variables, <span class="math inline">\(R^2\)</span> focuses on the model as a whole. Conceptually, <span class="math inline">\(R^2\)</span> answers the following question:</p>
+<blockquote class="blockquote">
+<p>How much of the variation in the outcome variable is explained by the regression model?</p>
+</blockquote>
+<p>To understand this, recall that real-world data vary. Individuals differ in their outcomes for many reasons, not all of which are captured by the predictors in a model. A regression model attempts to explain some of this variability using the predictors we include. The remaining variation reflects factors not in the model, randomness, or measurement error.</p>
+<p>The value of <span class="math inline">\(R^2\)</span> lies between 0 and 1:</p>
+<ul>
+<li>An <span class="math inline">\(R^2\)</span> close to 0 indicates that the model explains very little of the variation in the outcome.</li>
+<li>An <span class="math inline">\(R^2\)</span> close to 1 indicates that the model explains a large proportion of the variation.</li>
+</ul>
+<p>For example, an <span class="math inline">\(R^2=0.65\)</span> means that 65% of the variability in the outcome variable can be explained by the predictors in the regression model, while the remaining 35% is unexplained.</p>
+</section>
+<section id="interpreting-r2-in-context" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="interpreting-r2-in-context"><span class="header-section-number">6.2.2</span> Interpreting <span class="math inline">\(R^2\)</span> in context</h3>
+<p>It is important to interpret <span class="math inline">\(R^2\)</span> in context, rather than treating it as a universal benchmark of model quality.</p>
+<p>In fields such as physics or engineering, very high <span class="math inline">\(R^2\)</span> values are common because systems are tightly controlled. In contrast, in social, behavioural, and economic data — — human behaviour is influenced by many unobserved factors. As a result, moderate <span class="math inline">\(R^2\)</span> values can still represent meaningful and useful models.</p>
+<p>A low <span class="math inline">\(R^2\)</span> does not necessarily imply that a model is “wrong.” It may simply reflect the complexity of the phenomenon being studied. Likewise, a high <span class="math inline">\(R^2\)</span> does not guarantee that a model is appropriate or that the relationship is causal.</p>
+</section>
+<section id="r2-and-statistical-significance" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="r2-and-statistical-significance"><span class="header-section-number">6.2.3</span> <span class="math inline">\(R^2\)</span> and statistical significance</h3>
+<p>A common misconception is that a high <span class="math inline">\(R^2\)</span> is required for regression coefficients to be statistically significant. In reality, these concepts address different questions:</p>
+<ul>
+<li>Statistical significance (via p-values) assesses whether a relationship is likely to exist in the population.</li>
+<li><span class="math inline">\(R^2\)</span> assesses how much of the outcome’s variability the model explains.</li>
+</ul>
+<p>It is entirely possible to have:</p>
+<ul>
+<li>a statistically significant coefficient with a low <span class="math inline">\(R^2\)</span>, or</li>
+<li>a high <span class="math inline">\(R^2\)</span> with some non-significant predictors.</li>
+</ul>
+<p>This distinction reinforces why both coefficient-level inference and model-level fit should be considered together when interpreting regression results.</p>
+</section>
+<section id="computing-r2" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="computing-r2"><span class="header-section-number">6.2.4</span> Computing <span class="math inline">\(R^2\)</span></h3>
+<p>Back in Chapter 2 we learnt the formula for the variance as:</p>
+<p><span class="math display">\[
+\frac{1}{n-1}\sum_{i=1}^{n} (X_i - \bar{X})^2
+\]</span> This formula (more importantly: the sum of squares) will help us to determine <span class="math inline">\(R^2\)</span>. Let’s use a small sample to explore this. Consider the time spent on the phone in one week (mins) by 6 random university students. In the table below, we compute the squared errors for each student:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6d3237c4{}.cl-6d2b454a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6d2ee25e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6d2efa50{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d2efa51{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d2efa5a{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d2efa5b{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d2efa64{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d2efa65{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6d3237c4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d2efa50"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">Student</span></p></th><th class="cl-6d2efa51"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">Time</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6d2efa5a"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">1</span></p></td><td class="cl-6d2efa5b"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">308</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d2efa5a"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">2</span></p></td><td class="cl-6d2efa5b"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">300</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d2efa5a"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">3</span></p></td><td class="cl-6d2efa5b"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">306</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d2efa5a"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">4</span></p></td><td class="cl-6d2efa5b"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">304</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d2efa5a"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">5</span></p></td><td class="cl-6d2efa5b"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">308</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d2efa64"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">6</span></p></td><td class="cl-6d2efa65"><p class="cl-6d2ee25e"><span class="cl-6d2b454a">310</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>We’ll begin by visualising this data on a scatterplot (and we can see that overall, there is variability bewteen the data points). If we plot the mean (<span class="math inline">\(306\)</span>), we can see how far away each point is from this line (referred to as a deviation, or error):</p>
+<center>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</center>
+<p>When we add up the squared errors, we get the sum of squares. Now at this point, we are only looking at the outcome variable (i.e.&nbsp;we haven’t included any predictors yet), so we can refer to this as the sum of squares total (<span class="math inline">\(SS_T\)</span>):</p>
+<p><span class="math display">\[
+\begin{aligned}
+SS_T &amp;= \sum_{i=1}^{n} (X_i - \bar{X})^2 \\
+   &amp;= (308-306)^2+(300-306)^2+(306-306)^2+(304-306)^2+(308-306)^2+(310-306)^2 \\
+   &amp;= 4+36+0+4+4+16 \\
+   &amp;= 64
+\end{aligned}
+\]</span></p>
+<p>Note there are three sources of <span class="math inline">\(SS\)</span> that we need to be aware of:</p>
+<ul>
+<li><span class="math inline">\(SS_T\)</span> (Sum of Squares Total)</li>
+<li><span class="math inline">\(SS_E\)</span> (Sum of Squares Error)</li>
+<li><span class="math inline">\(SS_R\)</span> (Sum of Squares Regression)</li>
+</ul>
+<p>In this example, we have computed <span class="math inline">\(SS_T=64\)</span>. In other words:</p>
+<blockquote class="blockquote">
+<p>The total variability in “Time” is 64 units</p>
+</blockquote>
+<p>Now suppose we build a regression model to predict Time based on number of social media friends (let’s call this variable <code>Social</code>). Suppose the data looks something like this:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6d9d3cae{}.cl-6d97cb20{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6d9a0020{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6d9a143e{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a1448{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a1449{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a1452{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a1453{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a1454{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a145c{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a145d{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d9a1466{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6d9d3cae"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6d9a143e"><p class="cl-6d9a0020"><span class="cl-6d97cb20">Student</span></p></th><th class="cl-6d9a1448"><p class="cl-6d9a0020"><span class="cl-6d97cb20">Time</span></p></th><th class="cl-6d9a1449"><p class="cl-6d9a0020"><span class="cl-6d97cb20">Social</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6d9a1452"><p class="cl-6d9a0020"><span class="cl-6d97cb20">1</span></p></td><td class="cl-6d9a1453"><p class="cl-6d9a0020"><span class="cl-6d97cb20">308</span></p></td><td class="cl-6d9a1454"><p class="cl-6d9a0020"><span class="cl-6d97cb20">110</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d9a1452"><p class="cl-6d9a0020"><span class="cl-6d97cb20">2</span></p></td><td class="cl-6d9a1453"><p class="cl-6d9a0020"><span class="cl-6d97cb20">300</span></p></td><td class="cl-6d9a1454"><p class="cl-6d9a0020"><span class="cl-6d97cb20">115</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d9a1452"><p class="cl-6d9a0020"><span class="cl-6d97cb20">3</span></p></td><td class="cl-6d9a1453"><p class="cl-6d9a0020"><span class="cl-6d97cb20">306</span></p></td><td class="cl-6d9a1454"><p class="cl-6d9a0020"><span class="cl-6d97cb20">120</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d9a1452"><p class="cl-6d9a0020"><span class="cl-6d97cb20">4</span></p></td><td class="cl-6d9a1453"><p class="cl-6d9a0020"><span class="cl-6d97cb20">304</span></p></td><td class="cl-6d9a1454"><p class="cl-6d9a0020"><span class="cl-6d97cb20">125</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d9a1452"><p class="cl-6d9a0020"><span class="cl-6d97cb20">5</span></p></td><td class="cl-6d9a1453"><p class="cl-6d9a0020"><span class="cl-6d97cb20">308</span></p></td><td class="cl-6d9a1454"><p class="cl-6d9a0020"><span class="cl-6d97cb20">130</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6d9a145c"><p class="cl-6d9a0020"><span class="cl-6d97cb20">6</span></p></td><td class="cl-6d9a145d"><p class="cl-6d9a0020"><span class="cl-6d97cb20">310</span></p></td><td class="cl-6d9a1466"><p class="cl-6d9a0020"><span class="cl-6d97cb20">135</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>And let’s suppose we used software to obtain the regression coefficients for this model to be:</p>
+<p><span class="math display">\[Time=283.6+0.18(Social)\]</span></p>
+<p>Using this regression equation, we can see what the model would have predicted <code>Time</code> to be for each student. And we can determine the <span class="math inline">\(SS\)</span> using a similar approach to <span class="math inline">\(SS_T\)</span>. However, we refer to this as <span class="math inline">\(SS_E\)</span> (Sum of Squares Error):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6dccb560{}.cl-6dc73432{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6dc964a0{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6dc97936{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97940{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97941{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc9794a{width:2.213in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc9794b{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc9794c{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97954{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97955{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97956{width:2.213in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc9795e{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc9795f{width:0.812in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97968{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97969{width:0.701in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97972{width:2.213in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6dc97973{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6dccb560"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6dc97936"><p class="cl-6dc964a0"><span class="cl-6dc73432">Student</span></p></th><th class="cl-6dc97940"><p class="cl-6dc964a0"><span class="cl-6dc73432">Time</span></p></th><th class="cl-6dc97941"><p class="cl-6dc964a0"><span class="cl-6dc73432">Social</span></p></th><th class="cl-6dc9794a"><p class="cl-6dc964a0"><span class="cl-6dc73432">Model</span></p></th><th class="cl-6dc97940"><p class="cl-6dc964a0"><span class="cl-6dc73432">Error</span></p></th><th class="cl-6dc9794b"><p class="cl-6dc964a0"><span class="cl-6dc73432">Error2</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6dc9794c"><p class="cl-6dc964a0"><span class="cl-6dc73432">1</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">308</span></p></td><td class="cl-6dc97955"><p class="cl-6dc964a0"><span class="cl-6dc73432">110</span></p></td><td class="cl-6dc97956"><p class="cl-6dc964a0"><span class="cl-6dc73432">283.6 + (0.18 x 110) = 303.4</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">4.6</span></p></td><td class="cl-6dc9795e"><p class="cl-6dc964a0"><span class="cl-6dc73432">18.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6dc9794c"><p class="cl-6dc964a0"><span class="cl-6dc73432">2</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">300</span></p></td><td class="cl-6dc97955"><p class="cl-6dc964a0"><span class="cl-6dc73432">115</span></p></td><td class="cl-6dc97956"><p class="cl-6dc964a0"><span class="cl-6dc73432">283.6 + (0.18 x 115) = 304.3</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">-4.3</span></p></td><td class="cl-6dc9795e"><p class="cl-6dc964a0"><span class="cl-6dc73432">21.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6dc9794c"><p class="cl-6dc964a0"><span class="cl-6dc73432">3</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">306</span></p></td><td class="cl-6dc97955"><p class="cl-6dc964a0"><span class="cl-6dc73432">120</span></p></td><td class="cl-6dc97956"><p class="cl-6dc964a0"><span class="cl-6dc73432">283.6 + (0.18 x 120) = 305.2</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">0.8</span></p></td><td class="cl-6dc9795e"><p class="cl-6dc964a0"><span class="cl-6dc73432">0.3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6dc9794c"><p class="cl-6dc964a0"><span class="cl-6dc73432">4</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">304</span></p></td><td class="cl-6dc97955"><p class="cl-6dc964a0"><span class="cl-6dc73432">125</span></p></td><td class="cl-6dc97956"><p class="cl-6dc964a0"><span class="cl-6dc73432">283.6 + (0.18 x 125) = 306.1</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">-2.1</span></p></td><td class="cl-6dc9795e"><p class="cl-6dc964a0"><span class="cl-6dc73432">6.3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6dc9794c"><p class="cl-6dc964a0"><span class="cl-6dc73432">5</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">308</span></p></td><td class="cl-6dc97955"><p class="cl-6dc964a0"><span class="cl-6dc73432">130</span></p></td><td class="cl-6dc97956"><p class="cl-6dc964a0"><span class="cl-6dc73432">283.6 + (0.18 x 130) = 307.0</span></p></td><td class="cl-6dc97954"><p class="cl-6dc964a0"><span class="cl-6dc73432">1.0</span></p></td><td class="cl-6dc9795e"><p class="cl-6dc964a0"><span class="cl-6dc73432">0.4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6dc9795f"><p class="cl-6dc964a0"><span class="cl-6dc73432">6</span></p></td><td class="cl-6dc97968"><p class="cl-6dc964a0"><span class="cl-6dc73432">310</span></p></td><td class="cl-6dc97969"><p class="cl-6dc964a0"><span class="cl-6dc73432">135</span></p></td><td class="cl-6dc97972"><p class="cl-6dc964a0"><span class="cl-6dc73432">283.6 + (0.18 x 135) = 307.9</span></p></td><td class="cl-6dc97968"><p class="cl-6dc964a0"><span class="cl-6dc73432">2.1</span></p></td><td class="cl-6dc97973"><p class="cl-6dc964a0"><span class="cl-6dc73432">0.9</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<center>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</center>
+<p><span class="math display">\[
+\begin{aligned}
+SS_E &amp;= \sum_{i=1}^{n} (X_i - \bar{X})^2 \\
+   &amp;= (308-303.4)^2+(300-304.3)^2+(306-305.2)^2+(304-306.1)^2+(308-307.0)^2+(310-307.9)^2 \\
+   &amp;= 18.5+21.2+0.3+6.3+0.4+2.9 \\
+   &amp;= 49.4
+\end{aligned}
+\]</span> With these two sources of error (<span class="math inline">\(SS_T\)</span> and <span class="math inline">\(SS_E\)</span>), we can determined <span class="math inline">\(SS_R\)</span>. This is because</p>
+<p><span class="math display">\[SS_T=SS_E+SS_R\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[SS_R=SS_T-SS_E\]</span></p>
+<p>And because we have calculated <span class="math inline">\(SS_T\)</span> and <span class="math inline">\(SS_E\)</span> to be 64 and 49.4, respectively, we can solve <span class="math inline">\(SS_R\)</span> to be:</p>
+<p><span class="math display">\[SS_R=64-49.4=14.6\]</span></p>
+<p>More importantly, if we take the ratio of <span class="math inline">\(SS_R\)</span> and <span class="math inline">\(SS_T\)</span>, we can express how much of the variance in our outcome is explained by the regression model, rather than left unexplained by random variation. This is called the coefficient of determination, or <span class="math inline">\(R^2\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+R^2 &amp;= \frac{SS_R}{SS_T} \\
+   &amp;= \frac{14.6}{64} \\
+   &amp;= 0.229
+\end{aligned}
+\]</span></p>
+<p>In this example, we can interpret this as:</p>
+<blockquote class="blockquote">
+<p>22.9% of the variation in time on the phone can be explained by this model.</p>
+</blockquote>
+<p>Note: <span class="math inline">\(R^2\)</span> is more suitable when we are dealing with simple linear regression. For multiple linear regression, we should use <span class="math inline">\(\text{Adjusted } R^2\)</span>. This is because <span class="math inline">\(R^2\)</span> will always increase (or stay the same) when additional predictors are added to a model, even if those predictors contribute little or no meaningful explanatory power, whereas adjusted <span class="math inline">\(R^2\)</span> penalises unnecessary model complexity and provides a fairer measure of model fit.</p>
+<p>We will learn how to compute <span class="math inline">\(\text{Adjusted } R^2\)</span> in the <strong>Excel</strong> section of this chapter.</p>
+</section>
+</section>
+<section id="regression-with-a-binary-predictor" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="regression-with-a-binary-predictor"><span class="header-section-number">6.3</span> Regression with a binary predictor</h2>
+<p>Up to this point, all of our regression examples have used numeric predictors. In these settings, interpretation is relatively straightforward: a regression coefficient represents the expected change in the outcome associated with a one-unit increase in the predictor, holding all other variables constant.</p>
+<p>However, many important variables in real data are categorical rather than numeric. Examples include treatment group, employment status, or whether a customer is new or returning. Regression can still be used in these situations, but the interpretation of the coefficients changes.</p>
+<p>We begin with the simplest categorical case: a binary predictor, which takes only two possible values. Suppose we are interested in understanding job satisfaction among employees. For each employee, we record:</p>
+<ul>
+<li>Job satisfaction (measured on a numeric scale)</li>
+<li>Income (numeric)</li>
+<li>Years at company, coded as a binary variable:
+<ul>
+<li>0 = less than 4 years</li>
+<li>1 = 4 years or more</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\text{Job Satisfaction} =\beta_0+\beta_1\text{Income}+\beta_2 \text{Years}\]</span></p>
+<p>Suppose we ran a regression model on some data and determined the coefficients to be:</p>
+<p><span class="math display">\[\text{Job Satisfaction} =7.2953+0.001(\text{Income})+ 3.4714 (\text{Years})\]</span></p>
+<p>Let’s interpret what the coefficient for Years (here = 3.4717) actually means by comparing two people with different codes for this variable, but keeping everything else constant:</p>
+<ul>
+<li>Person A
+<ul>
+<li>Income: <span class="math inline">\(75,000\)</span></li>
+<li>Years: “Less than 4” (<span style="color:red">0</span>)</li>
+</ul></li>
+<li>Person B
+<ul>
+<li>Income: <span class="math inline">\(75,000\)</span></li>
+<li>Years: “More than 4” (<span style="color:red">1</span>)</li>
+</ul></li>
+</ul>
+<p>If we substitute these values into the model for each person, we can determine their predicted job satisfaction scores:</p>
+<p><span class="math display">\[\text{Job Satisfaction}_A =7.2953+0.001(\text{Income})+ 3.4714 (\text{0})=14.7953\]</span> <span class="math display">\[\text{Job Satisfaction}_B =7.2953+0.001(\text{Income})+ 3.4714 (\text{1})=18.2667\]</span></p>
+<p>The difference between the two predictions (18.2667 – 14.7953) is equal to the coefficient for years (3.4714). Therefore, we can interpret this coefficient as:</p>
+<blockquote class="blockquote">
+<p>Job satisfaction is 3.4714 points higher, on average, for employees who have been at the company for more than 4 years, compared to those who have been at the company less than 4 years, when income is controlled for.</p>
+</blockquote>
+<p>Now, what if we had used different codes? E.g. what if we switched the 0s and 1s the other way?</p>
+<ul>
+<li>Years at company, coded as a binary variable:
+<ul>
+<li>1 = less than 4 years</li>
+<li>0 = 4 years or more</li>
+</ul></li>
+</ul>
+<p>In this case, the coefficients for the other terms might change, but the coefficient for Years will remain the same. The only difference is that the direction (i.e.&nbsp;positive or negative) will switch. For example, running a regression analysis on the same data, but switching the codes for <code>Years</code> would yield us the following:</p>
+<p><span class="math display">\[\text{Job Satisfaction} =10.7668+0.001(\text{Income})- 3.4714 (\text{Years})\]</span></p>
+<p>If we take the same two people from before, but now with the codes reversed:</p>
+<ul>
+<li>Person A
+<ul>
+<li>Income: <span class="math inline">\(75,000\)</span></li>
+<li>Years: “Less than 4” (<span style="color:red">1</span>)</li>
+</ul></li>
+<li>Person B
+<ul>
+<li>Income: <span class="math inline">\(75,000\)</span></li>
+<li>Years: “More than 4” (<span style="color:red">0</span>)</li>
+</ul></li>
+</ul>
+<p>And substitute these values into the model for each person with the new model:</p>
+<p><span class="math display">\[\text{Job Satisfaction}_A =10.7668+0.001(\text{Income})- 3.4714 (\text{1})=14.7953\]</span></p>
+<p><span class="math display">\[\text{Job Satisfaction}_B =10.7668+0.001(\text{Income})- 3.4714 (\text{0})=18.2667\]</span></p>
+<p>Notice here that the predictions work out to be exactly the same as above. And that the difference between the two predictions (18.2667 – 14.7953) is equal to the coefficient for years (3.4714).</p>
+</section>
+<section id="regression-with-a-categorical-predictor-k-2-levels" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="regression-with-a-categorical-predictor-k-2-levels"><span class="header-section-number">6.4</span> Regression with a categorical predictor ((k &gt; 2) levels)</h2>
+<p>The binary predictor case works neatly because there are only two groups. But in many real-world problems, categorical variables have <strong>more than two categories</strong>. Common examples include job position, education level, or type of contract. Regression can still be used in these situations — but we need to be more careful about how the variable is represented in the model.</p>
+<p>Suppose we extend our job satisfaction example by including <strong>job position</strong> as a predictor, with three possible levels:</p>
+<ul>
+<li>Clerical<br>
+</li>
+<li>Labourer<br>
+</li>
+<li>Manager</li>
+</ul>
+<p>Our goal is to understand how job satisfaction differs across these roles, while still controlling for income.</p>
+<section id="choosing-a-reference-level" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="choosing-a-reference-level"><span class="header-section-number">6.4.1</span> Choosing a reference level</h3>
+<p>A categorical variable with three levels does not correspond to a single numeric coefficient. Instead, regression works by comparing groups to a reference level (also called the <em>baseline</em>).</p>
+<p>We must choose one category to act as this reference group. Suppose we choose:</p>
+<blockquote class="blockquote">
+<p><strong>Clerical</strong> as the reference level.</p>
+</blockquote>
+<p>All other categories will be interpreted <em>relative to clerical employees</em>.</p>
+</section>
+<section id="dummy-coding-indicator-variables" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="dummy-coding-indicator-variables"><span class="header-section-number">6.4.2</span> Dummy coding (indicator variables)</h3>
+<p>To include job position in the regression model, we create dummy variables (also called indicator variables). With three categories, we need two dummy variables:</p>
+<ul>
+<li><code>Labourer</code>
+<ul>
+<li>1 = Labourer<br>
+</li>
+<li>0 = otherwise</li>
+</ul></li>
+<li><code>Manager</code>
+<ul>
+<li>1 = Manager<br>
+</li>
+<li>0 = otherwise</li>
+</ul></li>
+</ul>
+<p>Clerical employees are implicitly represented when both dummy variables are equal to 0.</p>
+<p>The regression model can be written as:</p>
+<p><span class="math display">\[
+\text{Job Satisfaction}
+= \beta_0
++ \beta_1 \text{Income}
++ \beta_2 \text{Labourer}
++ \beta_3 \text{Manager}
+\]</span></p>
+</section>
+<section id="interpreting-the-coefficients" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="interpreting-the-coefficients"><span class="header-section-number">6.4.3</span> Interpreting the coefficients</h3>
+<p>Under this coding:</p>
+<ul>
+<li><span class="math inline">\((\beta_1)\)</span> represents the predicted job satisfaction for every unit increase in income, holding position constant.</li>
+<li><span class="math inline">\((\beta_2)\)</span> represents the expected difference in job satisfaction between labourers and clerical employees, holding income constant.</li>
+<li><span class="math inline">\((\beta_3)\)</span> represents the expected difference in job satisfaction between managers and clerical employees, holding income constant.</li>
+</ul>
+<p>Once we include a categorical predictor, the coefficients should be interpreted as group differences <em>relative to the reference category</em>, rather than as “per-unit increases”.</p>
+<p>As an example, suppose we used software to fit the model, and we determined the coefficients to be:</p>
+<p><span class="math display">\[
+\text{Job Satisfaction}
+= 6.20
++ 0.002\,(\text{Income})
+- 1.50\,(\text{Labourer})
++ 2.80\,(\text{Manager})
+\]</span> When can interpret each term in this equation as:</p>
+<ul>
+<li><strong>Income</strong> <span class="math inline">\((\beta_1 = 0.002)\)</span><br>
+For every $1 increase in income, predicted job satisfaction increases by 0.002 points, on average, holding job position constant.</li>
+<li><strong>Labourer</strong> <span class="math inline">\((\beta_2 = -1.50)\)</span><br>
+Labourers are predicted to have job satisfaction scores that are 1.50 points lower than clerical employees, on average, holding income constant.</li>
+<li><strong>Manager</strong> <span class="math inline">\((\beta_3 = 2.80)\)</span><br>
+Managers are predicted to have job satisfaction scores that are 2.80 points higher than clerical employees, on average, holding income constant.</li>
+</ul>
+<hr>
+</section>
+<section id="why-we-cannot-include-all-three-positions-as-predictors" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="why-we-cannot-include-all-three-positions-as-predictors"><span class="header-section-number">6.4.4</span> Why we <em>cannot</em> include all three positions as predictors</h3>
+<p>A natural question at this point is:</p>
+<blockquote class="blockquote">
+<p><em>Why don’t we just include three dummy variables — one for clerical, one for labourer, and one for manager?</em></p>
+</blockquote>
+<p>For example:</p>
+<p><span class="math display">\[
+\text{Job Satisfaction}
+= \beta_0
++ \beta_1 \text{Income}
++ \beta_2 \text{Labourer}
++ \beta_3 \text{Manager}
++ \beta_3 \text{Clerical}
+\]</span></p>
+<p>If we attempted this, we would run into a problem known as perfect multicollinearity. This occurs because, for every observation:</p>
+<p><span class="math display">\[
+\text{Clerical} + \text{Labourer} + \text{Manager} = 1.
+\]</span></p>
+<p>This creates redundancy in the predictors, meaning the regression model cannot estimate all coefficients uniquely.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More advanced: why the model becomes rank deficient (matrix view)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The maths for this is beyond the scopes of this unit, but for those interested, consider that linear regression can be written in matrix form as:</p>
+<p><span class="math display">\[
+\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}.
+\]</span></p>
+<p>If we include an intercept, income, and <strong>three</strong> dummy variables (clerical, labourer, manager), then for three example employees (A), (B), and (C), the design matrix would look like:</p>
+<p><span class="math display">\[
+\mathbf{X}
+=
+\begin{bmatrix}
+1 &amp; \text{Income}_A &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; \text{Income}_B &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; \text{Income}_C &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}.
+\]</span></p>
+<p>For every row, exactly one of the three dummy variables equals 1 and the other two equal 0. Therefore:</p>
+<p><span class="math display">\[
+\text{Clerical} + \text{Labourer} + \text{Manager} = 1 = \text{Intercept}.
+\]</span></p>
+<p>This means:</p>
+<p><span class="math display">\[
+\text{Column 3} + \text{Column 4} + \text{Column 5} = \text{Column 1}.
+\]</span></p>
+<p>In other words, one column of the design matrix is an <strong>exact linear combination</strong> of the others. The matrix () is therefore <strong>rank deficient</strong> (it does not have full rank).</p>
+<p>Ordinary least squares (OLS) estimation relies on:</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}.
+\]</span></p>
+<p>When <span class="math inline">\(\mathbf{X}\)</span> is rank deficient, the matrix <span class="math inline">\(\mathbf{X}^\top \mathbf{X}\)</span> is singular (non-invertible), so OLS regression cannot compute unique coefficient estimates.</p>
+<p>In practice, statistical software will typically return an error or warning such as:</p>
+<ul>
+<li><em>“Coefficients are not uniquely determined”</em></li>
+<li><em>“Model matrix is rank deficient”</em></li>
+</ul>
+<p>In Excel, the model will still run, but one of the rows will have an error:</p>
+<center>
+<img src="images/Chapter 6/Excel table.png" class="img-fluid">
+</center>
+</div>
+</div>
+</section>
+<section id="the-fix-use-k---1-dummy-variables" class="level3" data-number="6.4.5">
+<h3 data-number="6.4.5" class="anchored" data-anchor-id="the-fix-use-k---1-dummy-variables"><span class="header-section-number">6.4.5</span> The fix: use (k - 1) dummy variables</h3>
+<p>To avoid this issue, we must always include only (k - 1) dummy variables for a categorical predictor with (k) levels, treating the remaining category as the reference level.</p>
+<p>With three job positions, we include two dummy variables (e.g.&nbsp;labourer and manager), and clerical becomes the baseline group.</p>
+</section>
+<section id="does-the-reference-level-matter" class="level3" data-number="6.4.6">
+<h3 data-number="6.4.6" class="anchored" data-anchor-id="does-the-reference-level-matter"><span class="header-section-number">6.4.6</span> Does the reference level matter?</h3>
+<p>The choice of reference level affects how we <strong>interpret</strong> the coefficients, but it does <strong>not</strong> change the fitted values or predictions produced by the model. Changing the reference category simply changes which comparisons appear explicitly in the regression output.</p>
+</section>
+</section>
+<section id="regression-with-time-series" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="regression-with-time-series"><span class="header-section-number">6.5</span> Regression with time-series</h2>
+<p>Up to this point, our independent variables (IVs) have been either continuous (such as income or years at the company) or categorical (such as position coded with dummy variables).</p>
+<p>However, when we work with time series data, the situation is quite different. Time carries a natural sequential order, and the relationships between observations often depend on their position in that sequence.</p>
+<p>Unlike income or years of experience, which can vary independently across individuals, time introduces <strong>autocorrelation</strong> - today’s outcome is usually related to yesterday’s.</p>
+<p>As an example, suppose I had some <em>Google Trends</em> data, where I wanted to see how popular was the search term <strong>AFL</strong> on Google. And, let’s suppose, I looked at this across a five year period. The table below shows the first and last five obervations in this data set.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6e897e70{}.cl-6e83df10{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6e86007e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6e86155a{width:1.067in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e86155b{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861564{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861565{width:1.067in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e86156e{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e86156f{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861570{width:1.067in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861578{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861579{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861582{width:1.067in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861583{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e86158c{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861596{width:1.067in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e861597{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e8615a0{width:0.455in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6e897e70"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6e86155a"><p class="cl-6e86007e"><span class="cl-6e83df10">Week</span></p></th><th class="cl-6e86155b"><p class="cl-6e86007e"><span class="cl-6e83df10">Time</span></p></th><th class="cl-6e861564"><p class="cl-6e86007e"><span class="cl-6e83df10">afl</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6e861565"><p class="cl-6e86007e"><span class="cl-6e83df10">2020-08-16</span></p></td><td class="cl-6e86156e"><p class="cl-6e86007e"><span class="cl-6e83df10">1</span></p></td><td class="cl-6e86156f"><p class="cl-6e86007e"><span class="cl-6e83df10">43</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861565"><p class="cl-6e86007e"><span class="cl-6e83df10">2020-08-23</span></p></td><td class="cl-6e86156e"><p class="cl-6e86007e"><span class="cl-6e83df10">2</span></p></td><td class="cl-6e86156f"><p class="cl-6e86007e"><span class="cl-6e83df10">52</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861565"><p class="cl-6e86007e"><span class="cl-6e83df10">2020-08-30</span></p></td><td class="cl-6e86156e"><p class="cl-6e86007e"><span class="cl-6e83df10">3</span></p></td><td class="cl-6e86156f"><p class="cl-6e86007e"><span class="cl-6e83df10">52</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861570"><p class="cl-6e86007e"><span class="cl-6e83df10">2020-09-06</span></p></td><td class="cl-6e861578"><p class="cl-6e86007e"><span class="cl-6e83df10">4</span></p></td><td class="cl-6e861579"><p class="cl-6e86007e"><span class="cl-6e83df10">57</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861565"><p class="cl-6e86007e"><span class="cl-6e83df10">2020-09-13</span></p></td><td class="cl-6e86156e"><p class="cl-6e86007e"><span class="cl-6e83df10">5</span></p></td><td class="cl-6e86156f"><p class="cl-6e86007e"><span class="cl-6e83df10">53</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861582"><p class="cl-6e86007e"><span class="cl-6e83df10">⋮</span></p></td><td class="cl-6e861583"><p class="cl-6e86007e"><span class="cl-6e83df10">⋮</span></p></td><td class="cl-6e86158c"><p class="cl-6e86007e"><span class="cl-6e83df10">⋮</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861570"><p class="cl-6e86007e"><span class="cl-6e83df10">2025-07-20</span></p></td><td class="cl-6e861578"><p class="cl-6e86007e"><span class="cl-6e83df10">258</span></p></td><td class="cl-6e861579"><p class="cl-6e86007e"><span class="cl-6e83df10">47</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861570"><p class="cl-6e86007e"><span class="cl-6e83df10">2025-07-27</span></p></td><td class="cl-6e861578"><p class="cl-6e86007e"><span class="cl-6e83df10">259</span></p></td><td class="cl-6e861579"><p class="cl-6e86007e"><span class="cl-6e83df10">48</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861565"><p class="cl-6e86007e"><span class="cl-6e83df10">2025-08-03</span></p></td><td class="cl-6e86156e"><p class="cl-6e86007e"><span class="cl-6e83df10">260</span></p></td><td class="cl-6e86156f"><p class="cl-6e86007e"><span class="cl-6e83df10">53</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861565"><p class="cl-6e86007e"><span class="cl-6e83df10">2025-08-10</span></p></td><td class="cl-6e86156e"><p class="cl-6e86007e"><span class="cl-6e83df10">261</span></p></td><td class="cl-6e86156f"><p class="cl-6e86007e"><span class="cl-6e83df10">53</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6e861596"><p class="cl-6e86007e"><span class="cl-6e83df10">2025-08-17</span></p></td><td class="cl-6e861597"><p class="cl-6e86007e"><span class="cl-6e83df10">262</span></p></td><td class="cl-6e8615a0"><p class="cl-6e86007e"><span class="cl-6e83df10">42</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>If we were to plot the data it shows a very obvious seasonal pattern, where AFL interest is low in Q1 and Q4 of any given year (because it’s the off-season), and high during Q2 and Q3 (within season).</p>
+<center>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</center>
+<p>Now, suppose we modelled <code>afl</code> as a regression model (using <code>Time</code> as our predictor). Visually, this might look like:</p>
+<center>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</center>
+<p>Notice here that this model, which is a straight line, is only picking up on the <strong>trend</strong> of the data. It does a very poor job of predicting actual <code>afl</code> interest for most of the data. As an example, suppose the fitted model was:</p>
+<p><span class="math display">\[afl=32.45+0.023(Time)\]</span></p>
+<p>And suppose we wanted to predict <code>afl</code> interest at time = 62 (which was 17/10/2021). The predicted value would be:</p>
+<p><span class="math display">\[afl=32.45+0.023(62)=33.876\]</span></p>
+<p>This is quite different to the actual value of 8:</p>
+<center>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</center>
+<p>In future units, you will learn about <strong>time-series analysis</strong>, which is a more appropriate technique for handling this type of data. In this unit, ETC1000, you just need to be aware of this limitation when constructing your regression models.</p>
+<p>As an example, consider the image below. Both panels use the exact same data (<code>afl</code> over time). The panel on the left is fitted with a linear regression model, and has made a linear forecast for the next 52 weeks. The panel on the right is a time series model, and it’s forecast is much more reflective on the actual data:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interaction-effects" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="interaction-effects"><span class="header-section-number">6.6</span> Interaction Effects</h2>
+<p>Thus far, our regression models have only considered additive effects, where each predictor is assumed to influence the outcome independently of the others. These are sometimes referred to as <strong>main</strong> effects. Under this assumption, the effect of a predictor — such as income, years at a company, or job position — is the same for all individuals, regardless of the values of other variables in the model.</p>
+<p>In many real-world situations, however, this assumption is too simplistic. The relationship between a predictor and the outcome may depend on another variable. For example, an increase in income may have a different impact on job satisfaction for managers than it does for clerical staff, or the effect of time at a company may vary across roles. Interaction effects allow us to model these conditional relationships explicitly, extending regression beyond “average effects” and enabling more nuanced and realistic interpretations.</p>
+<p>As an example, suppose a team of scientists recruited 40 high school students who enjoyed playing violent video games on a regular basis. They were asked to keep a record of how many hours of violent video games they played in one week. In addition, they had to complete a (pre-post) aggression questionnaire, where higher scores represented higher levels of aggression.</p>
+<p>In this example, the researchers are investigating if time spent playing violent video games is associated with aggression. Graphically, this could be expressed as predictor <span class="math inline">\(\longrightarrow\)</span> Outcome (a standard one-one relationship):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Interactions occur when we believe a third variable (usually called a moderator) can influence that one-to-one relationship:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In our current example, the main effect is:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In our current dataset, if we consider just the relationship between Time and Aggression, we can observe a positive linear trend line (i.e.&nbsp;the more time one plays violent video games <span class="math inline">\(\longrightarrow\)</span> the higher the aggression score), see the left panel below. However, suppose there was a third variable, <code>History of Family Violence</code> (yes / no). And we fitted separate models for each group. We can see that depending on whether or not the participant had a history of family violence, then the slope of the relationship is quite different (see the right panel).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If we look at the relationship between Time and Aggression for those with a family history of violence,then it appears that there is a strong positive relationship between Time and Aggression. However, if we only look at the children from the No history of violence group, then we can see that there is a very weak relationship between Time and Aggression. Given these differences, using the original scatter plot (left-panel) would not paint a clear picture of what is really happening. Depending on the child’s group (Yes / No), the relationship between Time and Aggression is quite different!</p>
+<blockquote class="blockquote">
+<p>Therefore, we would say that Family History is moderating the relationship between Time and Aggression</p>
+</blockquote>
+<p>Mathematically, moderation (or interaction) is represented by including a product term in the regression model, formed by multiplying the two variables together (for example, Variable 1 × Variable 2). This interaction term allows the slope of one predictor to vary across levels of the other.</p>
+<p>Suppose the first five rows of our data looked like the table below, where</p>
+<ul>
+<li><code>Group</code> (0 = No family history; 1 = Yes family history)</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-8c48a9b8{}.cl-8c4319ee{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8c45637a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8c457c52{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c5c{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c5d{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c66{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c67{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c68{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c69{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c70{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c457c71{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8c48a9b8"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8c457c52"><p class="cl-8c45637a"><span class="cl-8c4319ee">Group</span></p></th><th class="cl-8c457c5c"><p class="cl-8c45637a"><span class="cl-8c4319ee">Time</span></p></th><th class="cl-8c457c5d"><p class="cl-8c45637a"><span class="cl-8c4319ee">Aggression</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8c457c66"><p class="cl-8c45637a"><span class="cl-8c4319ee">0</span></p></td><td class="cl-8c457c67"><p class="cl-8c45637a"><span class="cl-8c4319ee">5.42</span></p></td><td class="cl-8c457c68"><p class="cl-8c45637a"><span class="cl-8c4319ee">2.78</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c457c66"><p class="cl-8c45637a"><span class="cl-8c4319ee">1</span></p></td><td class="cl-8c457c67"><p class="cl-8c45637a"><span class="cl-8c4319ee">4.04</span></p></td><td class="cl-8c457c68"><p class="cl-8c45637a"><span class="cl-8c4319ee">6.42</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c457c66"><p class="cl-8c45637a"><span class="cl-8c4319ee">0</span></p></td><td class="cl-8c457c67"><p class="cl-8c45637a"><span class="cl-8c4319ee">4.78</span></p></td><td class="cl-8c457c68"><p class="cl-8c45637a"><span class="cl-8c4319ee">6.87</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c457c66"><p class="cl-8c45637a"><span class="cl-8c4319ee">0</span></p></td><td class="cl-8c457c67"><p class="cl-8c45637a"><span class="cl-8c4319ee">7.20</span></p></td><td class="cl-8c457c68"><p class="cl-8c45637a"><span class="cl-8c4319ee">5.09</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c457c69"><p class="cl-8c45637a"><span class="cl-8c4319ee">1</span></p></td><td class="cl-8c457c70"><p class="cl-8c45637a"><span class="cl-8c4319ee">4.30</span></p></td><td class="cl-8c457c71"><p class="cl-8c45637a"><span class="cl-8c4319ee">6.58</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>The interaction term is computed by multiplying <code>Group</code> and <code>Time</code> together. In this example:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-8c73b784{}.cl-8c6e3084{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8c6e3098{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-8c70760a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8c708bfe{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c08{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c12{width:1.3in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c13{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c14{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c1c{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c1d{width:1.3in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c1e{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c26{width:0.71in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c27{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c30{width:1.3in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c708c31{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8c73b784"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8c708bfe"><p class="cl-8c70760a"><span class="cl-8c6e3084">Group</span></p></th><th class="cl-8c708c08"><p class="cl-8c70760a"><span class="cl-8c6e3084">Time</span></p></th><th class="cl-8c708c12"><p class="cl-8c70760a"><span class="cl-8c6e3084">Group.Time</span></p></th><th class="cl-8c708c13"><p class="cl-8c70760a"><span class="cl-8c6e3084">Aggression</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8c708c14"><p class="cl-8c70760a"><span class="cl-8c6e3084">0</span></p></td><td class="cl-8c708c1c"><p class="cl-8c70760a"><span class="cl-8c6e3084">5.42</span></p></td><td class="cl-8c708c1d"><p class="cl-8c70760a"><span class="cl-8c6e3098">0 x 5.42 = 0</span></p></td><td class="cl-8c708c1e"><p class="cl-8c70760a"><span class="cl-8c6e3084">2.78</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c708c14"><p class="cl-8c70760a"><span class="cl-8c6e3084">1</span></p></td><td class="cl-8c708c1c"><p class="cl-8c70760a"><span class="cl-8c6e3084">4.04</span></p></td><td class="cl-8c708c1d"><p class="cl-8c70760a"><span class="cl-8c6e3098">1 x 4.04 = 4.04</span></p></td><td class="cl-8c708c1e"><p class="cl-8c70760a"><span class="cl-8c6e3084">6.42</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c708c14"><p class="cl-8c70760a"><span class="cl-8c6e3084">0</span></p></td><td class="cl-8c708c1c"><p class="cl-8c70760a"><span class="cl-8c6e3084">4.78</span></p></td><td class="cl-8c708c1d"><p class="cl-8c70760a"><span class="cl-8c6e3098">0 x 4.78 = 0</span></p></td><td class="cl-8c708c1e"><p class="cl-8c70760a"><span class="cl-8c6e3084">6.87</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c708c14"><p class="cl-8c70760a"><span class="cl-8c6e3084">0</span></p></td><td class="cl-8c708c1c"><p class="cl-8c70760a"><span class="cl-8c6e3084">7.20</span></p></td><td class="cl-8c708c1d"><p class="cl-8c70760a"><span class="cl-8c6e3098">0 x 7.2 = 0</span></p></td><td class="cl-8c708c1e"><p class="cl-8c70760a"><span class="cl-8c6e3084">5.09</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c708c26"><p class="cl-8c70760a"><span class="cl-8c6e3084">1</span></p></td><td class="cl-8c708c27"><p class="cl-8c70760a"><span class="cl-8c6e3084">4.30</span></p></td><td class="cl-8c708c30"><p class="cl-8c70760a"><span class="cl-8c6e3098">1 x 4.3 = 4.3</span></p></td><td class="cl-8c708c31"><p class="cl-8c70760a"><span class="cl-8c6e3084">6.58</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>We would then fit this as a term (effect) in our regression model. Suppose the coefficients table, for the full 40 children provided the following results:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-8c9c7660{}.cl-8c96ff64{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8c99334c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8c993356{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8c994c10{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c1a{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c24{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c25{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c26{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c2e{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c2f{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c38{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c39{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c3a{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c42{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c43{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c4c{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c4d{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c4e{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c56{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c57{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c60{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c61{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c62{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c63{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c6a{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c6b{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c6c{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8c994c6d{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8c9c7660"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8c994c10"><p class="cl-8c99334c"><span class="cl-8c96ff64">.</span></p></th><th class="cl-8c994c1a"><p class="cl-8c993356"><span class="cl-8c96ff64">Coefficients</span></p></th><th class="cl-8c994c24"><p class="cl-8c993356"><span class="cl-8c96ff64">SE</span></p></th><th class="cl-8c994c25"><p class="cl-8c993356"><span class="cl-8c96ff64">t.Stat</span></p></th><th class="cl-8c994c26"><p class="cl-8c993356"><span class="cl-8c96ff64">P.value</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8c994c2e"><p class="cl-8c99334c"><span class="cl-8c96ff64">Intercept</span></p></td><td class="cl-8c994c2f"><p class="cl-8c993356"><span class="cl-8c96ff64">3.854</span></p></td><td class="cl-8c994c38"><p class="cl-8c993356"><span class="cl-8c96ff64">0.902</span></p></td><td class="cl-8c994c39"><p class="cl-8c993356"><span class="cl-8c96ff64">4.274</span></p></td><td class="cl-8c994c3a"><p class="cl-8c993356"><span class="cl-8c96ff64">0.0001</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c994c42"><p class="cl-8c99334c"><span class="cl-8c96ff64">Group</span></p></td><td class="cl-8c994c43"><p class="cl-8c993356"><span class="cl-8c96ff64">-1.814</span></p></td><td class="cl-8c994c4c"><p class="cl-8c993356"><span class="cl-8c96ff64">1.184</span></p></td><td class="cl-8c994c4d"><p class="cl-8c993356"><span class="cl-8c96ff64">-1.523</span></p></td><td class="cl-8c994c4e"><p class="cl-8c993356"><span class="cl-8c96ff64">0.1311</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c994c56"><p class="cl-8c99334c"><span class="cl-8c96ff64">Time</span></p></td><td class="cl-8c994c57"><p class="cl-8c993356"><span class="cl-8c96ff64">0.239</span></p></td><td class="cl-8c994c60"><p class="cl-8c993356"><span class="cl-8c96ff64">0.173</span></p></td><td class="cl-8c994c61"><p class="cl-8c993356"><span class="cl-8c96ff64">1.384</span></p></td><td class="cl-8c994c62"><p class="cl-8c993356"><span class="cl-8c96ff64">0.1718</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8c994c63"><p class="cl-8c99334c"><span class="cl-8c96ff64">Group*Time</span></p></td><td class="cl-8c994c6a"><p class="cl-8c993356"><span class="cl-8c96ff64">0.663</span></p></td><td class="cl-8c994c6b"><p class="cl-8c993356"><span class="cl-8c96ff64">0.219</span></p></td><td class="cl-8c994c6c"><p class="cl-8c993356"><span class="cl-8c96ff64">3.023</span></p></td><td class="cl-8c994c6d"><p class="cl-8c993356"><span class="cl-8c96ff64">0.0038</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>Using this table, we can determine the model to be:</p>
+<p><span class="math display">\[
+Aggression=3.85-1.81(Group)+0.24(Time)+0.66(Group\times Time)
+\]</span></p>
+<p>And because we know how Group is coded (0 = No; 1 = Yes), we can construct seperate models for each group:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Aggression_{Group:0} &amp;= 3.85 -1.81(0)+0.24(Time)+0.66(0 \times Time) \\
+   &amp;= 3.85+0.24(Time) \\
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+Aggression_{Group:1} &amp;= 3.85 -1.81(1)+0.24(Time)+0.66(1 \times Time) \\
+   &amp;= 2.04+0.90(Time) \\
+\end{aligned}
+\]</span></p>
+<p>Notice here that the slope for Group 0 (No history of family violence) is relatively small (<span class="math inline">\(\beta=0.24\)</span>), indicating little increase in Aggression as Time increases. By comparison, the slope for Group 1 (Yes history of family violence) is much larger (<span class="math inline">\(\beta=0.90\)</span>), indicating a much larger increase in Aggression as Time increases. This is consistent with what we saw in our scatterplots earlier:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-More-regression_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, let’s look at the p-values for this scenario.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-8d0f71ce{}.cl-8d097eae{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8d097eb8{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-8d0c2ff0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8d0c3004{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8d0c4350{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c435a{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4364{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4365{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4366{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c436e{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4378{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4379{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4382{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4383{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c438c{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c438d{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4396{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4397{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c4398{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43a0{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43a1{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43aa{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43b4{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43b5{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43b6{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43be{width:1.083in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43bf{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43c0{width:0.718in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8d0c43c8{width:0.795in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8d0f71ce"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8d0c4350"><p class="cl-8d0c2ff0"><span class="cl-8d097eae">.</span></p></th><th class="cl-8d0c435a"><p class="cl-8d0c3004"><span class="cl-8d097eae">Coefficients</span></p></th><th class="cl-8d0c4364"><p class="cl-8d0c3004"><span class="cl-8d097eae">SE</span></p></th><th class="cl-8d0c4365"><p class="cl-8d0c3004"><span class="cl-8d097eae">t.Stat</span></p></th><th class="cl-8d0c4366"><p class="cl-8d0c3004"><span class="cl-8d097eae">P.value</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8d0c436e"><p class="cl-8d0c2ff0"><span class="cl-8d097eae">Intercept</span></p></td><td class="cl-8d0c4378"><p class="cl-8d0c3004"><span class="cl-8d097eae">3.854</span></p></td><td class="cl-8d0c4379"><p class="cl-8d0c3004"><span class="cl-8d097eae">0.902</span></p></td><td class="cl-8d0c4382"><p class="cl-8d0c3004"><span class="cl-8d097eae">4.274</span></p></td><td class="cl-8d0c4383"><p class="cl-8d0c3004"><span class="cl-8d097eb8">0.0001</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8d0c438c"><p class="cl-8d0c2ff0"><span class="cl-8d097eae">Group</span></p></td><td class="cl-8d0c438d"><p class="cl-8d0c3004"><span class="cl-8d097eae">-1.814</span></p></td><td class="cl-8d0c4396"><p class="cl-8d0c3004"><span class="cl-8d097eae">1.184</span></p></td><td class="cl-8d0c4397"><p class="cl-8d0c3004"><span class="cl-8d097eae">-1.523</span></p></td><td class="cl-8d0c4398"><p class="cl-8d0c3004"><span class="cl-8d097eb8">0.1311</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8d0c43a0"><p class="cl-8d0c2ff0"><span class="cl-8d097eae">Time</span></p></td><td class="cl-8d0c43a1"><p class="cl-8d0c3004"><span class="cl-8d097eae">0.239</span></p></td><td class="cl-8d0c43aa"><p class="cl-8d0c3004"><span class="cl-8d097eae">0.173</span></p></td><td class="cl-8d0c43b4"><p class="cl-8d0c3004"><span class="cl-8d097eae">1.384</span></p></td><td class="cl-8d0c43b5"><p class="cl-8d0c3004"><span class="cl-8d097eb8">0.1718</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8d0c43b6"><p class="cl-8d0c2ff0"><span class="cl-8d097eae">Group*Time</span></p></td><td class="cl-8d0c43be"><p class="cl-8d0c3004"><span class="cl-8d097eae">0.663</span></p></td><td class="cl-8d0c43bf"><p class="cl-8d0c3004"><span class="cl-8d097eae">0.219</span></p></td><td class="cl-8d0c43c0"><p class="cl-8d0c3004"><span class="cl-8d097eae">3.023</span></p></td><td class="cl-8d0c43c8"><p class="cl-8d0c3004"><span class="cl-8d097eb8">0.0038</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>The interaction term (Group × Time) is statistically significant (p = .0038), providing strong evidence that the effect of Time on Aggression differs between the two groups. In contrast, the main effect of Time alone (p = 0.1718) is not statistically significant, highlighting that the relationship between Time and Aggression cannot be adequately described by a single common slope. Together, these results confirm that Group moderates the relationship between Time and Aggression, which is precisely what we observed visually in the scatterplots.</p>
+</section>
+<section id="excel" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="excel"><span class="header-section-number">6.7</span> Excel</h2>
+<p>In this section we will learn how to use Microsoft Excel to solve some of the concepts covered in this chapter. Begin by downloading the data file below and then follow the instructions by navigating through the screenshots.</p>
+<center>
+<div class="cell">
+<div class="cell-output-display">
+<button class="btn btn-success" onclick="
+    async function downloadFile(event) {
+      event.preventDefault();
+      try {
+        const response = await fetch('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,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');
+        if (!response.ok) throw new Error('Network response failed');
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'Topic 6 Excel.xlsx';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.dispatchEvent(new MouseEvent('click'));
+        document.body.removeChild(a);
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blobUrl);
+        }, 100);
+        return false;
+      } catch (error) {
+        console.error('Download failed:', error);
+        alert('Download failed. Please try again.');
+      }
+    }
+    downloadFile(event);
+  "><i class="fa fa-save"></i> Job Satisfaction</button>
+</div>
+</div>
+</center>
+<section id="recap-of-excels-data-analysis-tool-pack-for-regression" class="level3" data-number="6.7.1">
+<h3 data-number="6.7.1" class="anchored" data-anchor-id="recap-of-excels-data-analysis-tool-pack-for-regression"><span class="header-section-number">6.7.1</span> Recap of Excel’s Data Analysis Tool Pack for Regression</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">4</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Begin by loading the data into Excel.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/01-MultReg01.png" class="img-fluid figure-img" width="575"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Switch to the <strong>Data</strong> tab, select <strong>Data Analysis</strong> and choose <strong>Regression</strong>.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/01-MultReg02.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>From there, specify your input Y (here: Job Satisfaction, so cells D1 to D31) and input X (here: Income, cells A1 to A31) ranges. Make sure “Labels” is selected, and specify your output range (e.g.&nbsp;F2).</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/01-MultReg03.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Clicking OK, generates the output.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/01-MultReg04.png" class="img-fluid figure-img" width="575"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-regression-with-a-binary-predictor" class="level3" data-number="6.7.2">
+<h3 data-number="6.7.2" class="anchored" data-anchor-id="multiple-regression-with-a-binary-predictor"><span class="header-section-number">6.7.2</span> Multiple Regression with a Binary predictor</h3>
+<p>Have a look at the second column in the data set (Years at company), which is a numeric variable from 1 to 8. In this exercise we will transform this variable into a binary one with two categories:</p>
+<ul>
+<li>0: Less than 4 years</li>
+<li>1: 4 or more years</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">4</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Insert a blank column to the right of the <code>Years at company</code> column. Call this new column <code>Years_Cat</code>. The easiest way to do this is to right click the current Colunm C and select “Insert”.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/02-MultRegBinary01.png" class="img-fluid figure-img" width="575"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>We need to write a formula that dichotomises Years at company into either 0 (if less than 4) or 1 (4 or more). In cell C2 type:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">=</span><span class="fu">IF</span>(B2 <span class="sc">&lt;</span> <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and apply this to each cell in this column.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/02-MultRegBinary02.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Switch to the <strong>Data</strong> tab, select <strong>Data Analysis</strong> and choose <strong>Regression</strong>. From there, specify your input Y (here: Job Satisfaction, so cells E1 to E31) and input X (here: Years_Cat, cells C1 to C31) ranges. Make sure “Labels” is selected, and specify your output range (e.g.&nbsp;G2).</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/02-MultRegBinary03.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<p>Clicking OK, generates the output.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/02-MultRegBinary04.png" class="img-fluid figure-img" width="575"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-regression-with-a-categorical-predictor" class="level3" data-number="6.7.3">
+<h3 data-number="6.7.3" class="anchored" data-anchor-id="multiple-regression-with-a-categorical-predictor"><span class="header-section-number">6.7.3</span> Multiple Regression with a Categorical predictor</h3>
+<p>Have a look at the variable <code>Position</code>. This is a categorical variable with three levels:</p>
+<ul>
+<li>Clerical</li>
+<li>Manager</li>
+<li>Labourer</li>
+</ul>
+<p>In this excercise we will create three new columns using dummy coding for this variable and construct a multiple regression model.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-5" role="tab" aria-controls="tabset-3-5" aria-selected="false">5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-6" role="tab" aria-controls="tabset-3-6" aria-selected="false">6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-7" role="tab" aria-controls="tabset-3-7" aria-selected="false">7</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Insert 3 blank columns to the right of the <code>Position</code> column. Call these columns, ‘Clerical’, ‘Manager’ and ‘Labourer’ respectively.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/03-MultRegCat01.png" class="img-fluid figure-img" width="575"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>In cell D2 (Clerical) we can use the following formula to write a 1 if Position is Clerical, otherwise return a 0. Apply this formula to all cases in this column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">=</span><span class="fu">IF</span>(<span class="at">C2 =</span> <span class="st">"Clerical"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/03-MultRegCat02.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p>Write and apply a similar formula for Managers (in cell E2).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">=</span><span class="fu">IF</span>(<span class="at">C2 =</span> <span class="st">"Manager"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/03-MultRegCat03.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
+<p>Write and apply a similar formula for Labourers (in cell F2).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">=</span><span class="fu">IF</span>(<span class="at">C2 =</span> <span class="st">"Labourer"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/03-MultRegCat04.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-5-tab">
+<p>Select one level to be the reference category. This level is not included into the model. For example, the screenshot below will use ‘Clerical’ as the reference</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/03-MultRegCat05.png" class="img-fluid figure-img" width="575"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-6-tab">
+<p>Switch to the <strong>Data</strong> tab, select <strong>Data Analysis</strong> and choose <strong>Regression</strong>. From there, specify your input Y (here: Job Satisfaction, so cells G1 to G31) and input X (here: Manager and Labourer, cells E1 to F31) ranges. Make sure “Labels” is selected, and specify your output range (e.g.&nbsp;I2).</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/03-MultRegCat06.png" class="img-fluid figure-img" width="1978"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-7-tab">
+<p>Clicking OK, generates the output.</p>
+<div class="cell enlarge-image">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/Chapter 6/03-MultRegCat07.png" class="img-fluid figure-img" width="575"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.8</span> Summary</h2>
+<p>In this chapter, we extended regression beyond the “one predictor, one straight line” idea and explored several concepts that make regression more useful for real-world data.</p>
+<p>First, we introduced goodness of fit, showing that statistical significance alone does not tell us whether a model is <em>useful</em>. We learnt that <span class="math inline">\((R^2)\)</span> describes the proportion of variation in the outcome explained by the model, and we linked this idea back to the sum of squares framework (<span class="math inline">\(SS_T\)</span>, <span class="math inline">\(SS_E\)</span>, and <span class="math inline">\(SS_R\)</span>). We also highlighted why <span class="math inline">\(R^2\)</span> is most appropriate for simple linear regression, and why adjusted <span class="math inline">\(R^2\)</span> is preferred in multiple regression settings where adding extra predictors can artificially inflate <span class="math inline">\(R^2\)</span>.</p>
+<p>Next, we showed how regression can incorporate categorical predictors. With a binary predictor, coefficients are interpreted as differences between two groups (relative to whichever group is coded as 0). With a categorical predictor that has more than two levels, we learnt that regression requires dummy coding and a reference category. We also discussed why including all <span class="math inline">\(k\)</span> dummy variables creates perfect multicollinearity, leading to a rank-deficient design matrix and preventing unique coefficient estimation.</p>
+<p>We then explored regression with time series data, where a simple linear regression often captures only the overall trend and can miss important patterns such as seasonality.</p>
+<p>Finally, we introduced interaction effects, where the effect of one predictor depends on the value of another. Using the violent games example, we saw how interactions appear as different slopes for different groups, how to compute the interaction term, how to write separate regression equations for each group, and how to interpret the key p-value for the interaction term as evidence of moderation.</p>
+</section>
+<section id="exercises" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.9</span> Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A regression model predicting weekly phone time from number of social media friends produces:</p>
+<p><span class="math display">\[
+R^2 = 0.23
+\]</span></p>
+<p><strong>(a)</strong> What does this value mean in context?<br>
+<strong>(b)</strong> Does <span class="math inline">\(R^2 = 0.23\)</span> imply the model is “bad”? Explain briefly.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong><br>
+An <span class="math inline">\(R^2\)</span> value of 0.23 means that <strong>23% of the variation</strong> in weekly phone time is explained by the regression model. The remaining 77% of the variation is due to other factors, randomness, or measurement error.</p>
+<p><strong>(b)</strong><br>
+No.&nbsp;It depends on the discipline. Moderate or low <span class="math inline">\(R^2\)</span> values are common because outcomes are influenced by many unobserved factors. A model can still capture a meaningful relationship even if <span class="math inline">\(R^2\)</span> is not large.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are told that for a regression model:</p>
+<p><span class="math display">\[
+SS_T = 80
+\]</span></p>
+<p><span class="math display">\[
+SS_E = 50
+\]</span></p>
+<p><strong>(a)</strong> Compute <span class="math inline">\(SS_R\)</span>.<br>
+<strong>(b)</strong> Compute <span class="math inline">\(R^2\)</span>.<br>
+<strong>(c)</strong> Interpret the result.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong><br>
+<span class="math display">\[
+SS_R = SS_T - SS_E = 80 - 50 = 30
+\]</span></p>
+<p><strong>(b)</strong><br>
+<span class="math display">\[
+R^2 = \frac{SS_R}{SS_T} = \frac{30}{80} = 0.375
+\]</span></p>
+<p><strong>(c)</strong><br>
+The regression model explains <strong>37.5% of the variation</strong> in the outcome variable.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A regression model predicting job satisfaction includes a binary variable:</p>
+<p><span class="math display">\[
+\text{Years} =
+\begin{cases}
+0 &amp; \text{less than 4 years} \\
+1 &amp; \text{4 years or more}
+\end{cases}
+\]</span></p>
+<p>The fitted model is:</p>
+<p><span class="math display">\[
+\text{Job Satisfaction}
+= 7.30 + 0.001(\text{Income}) + 3.47(\text{Years})
+\]</span></p>
+<p><strong>(a)</strong> Interpret the coefficient 3.47.<br>
+<strong>(b)</strong> If the coding of Years is reversed, what happens to the sign of the coefficient?</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong><br>
+Holding income constant, employees who have been at the company for <strong>4 years or more</strong> are predicted to have job satisfaction scores that are <strong>3.47 points higher</strong>, on average, than employees who have been at the company for less than 4 years.</p>
+<p><strong>(b)</strong><br>
+If the coding is reversed, the <strong>sign of the coefficient will change</strong>, but the predicted values and group differences remain the same. Only the reference group changes.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Job position has three levels: Clerical, Labourer, and Manager. Clerical is the reference group. The fitted model is:</p>
+<p><span class="math display">\[
+\text{Job Satisfaction}
+= 6.20 + 0.002(\text{Income})
+- 1.50(\text{Labourer})
++ 2.80(\text{Manager})
+\]</span></p>
+<p>Assume income is held constant.</p>
+<p><strong>(a)</strong> Interpret the coefficient −1.50.<br>
+<strong>(b)</strong> Interpret the coefficient 2.80.<br>
+<strong>(c)</strong> What values do the dummy variables take for a clerical employee?</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong><br>
+Labourers are predicted to have job satisfaction scores that are <strong>1.50 points lower</strong> than clerical employees, on average, holding income constant.</p>
+<p><strong>(b)</strong><br>
+Managers are predicted to have job satisfaction scores that are <strong>2.80 points higher</strong> than clerical employees, on average, holding income constant.</p>
+<p><strong>(c)</strong><br>
+For clerical employees (the reference group):</p>
+<p><span class="math display">\[
+\text{Labourer} = 0
+\]</span></p>
+<p><span class="math display">\[
+\text{Manager} = 0
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question 5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A regression model examining aggression includes:</p>
+<p><span class="math display">\[
+\text{Group} =
+\begin{cases}
+0 &amp; \text{no family violence history} \\
+1 &amp; \text{family violence history}
+\end{cases}
+\]</span></p>
+<p>The fitted model is:</p>
+<p><span class="math display">\[
+\text{Aggression}
+= 3.85 - 1.81(\text{Group})
++ 0.24(\text{Time})
++ 0.66(\text{Group} \times \text{Time})
+\]</span></p>
+<p><strong>(a)</strong> Write the regression equation for Group = 0.<br>
+<strong>(b)</strong> Write the regression equation for Group = 1.<br>
+<strong>(c)</strong> Interpret the interaction coefficient 0.66.<br>
+<strong>(d)</strong> If the p-value for the interaction term is 0.0038, what is the conclusion?</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for Solutions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> For Group = 0:</p>
+<p><span class="math display">\[
+\text{Aggression}
+= 3.85 + 0.24(\text{Time})
+\]</span></p>
+<p><strong>(b)</strong> For Group = 1:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Aggression}
+&amp;= 3.85 - 1.81 + (0.24 + 0.66)(\text{Time}) \\
+&amp;= 2.04 + 0.90(\text{Time})
+\end{aligned}
+\]</span></p>
+<p><strong>(c)</strong><br>
+The interaction coefficient 0.66 means that the effect of Time on Aggression is <strong>0.66 units larger</strong> for individuals with a family violence history compared to those without.</p>
+<p><strong>(d)</strong><br>
+Since</p>
+<p><span class="math display">\[
+p = 0.0038
+\]</span></p>
+<p>there is strong evidence that <strong>the relationship between Time and Aggression differs by group</strong>, confirming that Group moderates the effect of Time on Aggression.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-Multiple-regression-and-hypothesis-testing.html" class="pagination-link" aria-label="Hypothesis Testing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-Introduction-to-R.html" class="pagination-link" aria-label="Introduction to R">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
