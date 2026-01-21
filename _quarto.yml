@@ -1,0 +1,58 @@
+project:
+  type: book
+  output-dir: docs
+
+execute: 
+  echo: false
+  warning: false
+  cache: true
+  freeze: auto
+
+book:
+  title: "ETC1000 2026"
+  subtitle: Business and Economic Statistics
+  # author: "Minh Huynh"
+  # date: "10/29/2025"
+  downloads: pdf
+  reader-mode: true
+  sidebar:
+    align: left
+    style: floating
+    collapse-level: 2
+    pinned: false
+  
+  
+  chapters:
+    - index.qmd
+    - 01-Introduction-to-statistics.qmd
+    - 02-Analysing-numerical-data.qmd
+    - 03-Understanding-uncertainty.qmd
+    - 04-Models-of-relationships-between-data.qmd
+    - 05-Multiple-regression-and-hypothesis-testing.qmd
+    - 06-More-regression.qmd
+    - 07-Introduction-to-R.qmd
+    - 08-The-tidyverse.qmd
+    - 09-Classification-and-prediction.qmd
+    - 10-Logistic-regression.qmd
+  
+
+
+format:
+  html:
+    self-contained: false
+    css: 
+      - styles.css
+      - include/webex.css
+    include-after-body: 
+      - include/webex.js
+    theme:
+      light: 
+        - flatly
+        #- custom.scss
+      dark: 
+        - darkly
+        #- custom.scss
+    number-sections: true
+
+editor: visual
+
